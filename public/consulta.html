@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hacer una consulta</title>
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <header class="sitio">
+    <div class="contenedor">
+      <a class="marca" href="/" data-estudio="nombre">Consultas de Familia</a>
+      <nav><a href="/">Inicio</a></nav>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <h1>Hacer una consulta</h1>
+
+    <form id="form" novalidate>
+      <p class="progreso" id="progreso" aria-live="polite"></p>
+
+      <section class="paso activo" data-paso="1">
+        <h2>¿Sobre qué tema es tu consulta?</h2>
+        <div class="opciones-tema" id="opciones-tema" role="radiogroup" aria-label="Tema"></div>
+      </section>
+
+      <section class="paso" data-paso="2">
+        <h2 id="titulo-tema"></h2>
+        <div id="alerta-violencia" class="alerta" hidden>
+          <strong>Si estás en peligro ahora, llamá al <a href="tel:911">911</a>.</strong>
+          Línea 144 (violencia de género, gratuita, 24 hs). Línea 102 (niñas, niños y adolescentes).
+          Esta consulta no es un canal de emergencia.
+        </div>
+        <div id="campos-tema"></div>
+        <div class="campo">
+          <label for="relato">Contanos tu situación</label>
+          <textarea id="relato" name="relato" maxlength="4000" required></textarea>
+          <div class="ayuda">No hace falta usar términos jurídicos. Incluí lo que te parezca importante: qué pasó, desde cuándo y qué necesitás.</div>
+        </div>
+      </section>
+
+      <section class="paso" data-paso="3">
+        <h2>Tus datos de contacto</h2>
+        <div class="campo">
+          <label for="nombre">Nombre y apellido</label>
+          <input type="text" id="nombre" name="nombre" maxlength="120" autocomplete="name" required>
+        </div>
+        <div class="campo">
+          <label for="telefono">Teléfono</label>
+          <input type="tel" id="telefono" name="telefono" maxlength="40" autocomplete="tel">
+        </div>
+        <div class="campo">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" maxlength="160" autocomplete="email">
+          <div class="ayuda">Dejanos al menos un teléfono o un email.</div>
+        </div>
+        <div class="campo">
+          <label for="localidad">Localidad</label>
+          <input type="text" id="localidad" name="localidad" maxlength="120" value="Adolfo Gonzales Chaves">
+        </div>
+        <div class="campo">
+          <label for="preferencia">¿Cómo preferís que te contactemos?</label>
+          <select id="preferencia" name="preferencia">
+            <option value="">Indistinto</option>
+            <option>WhatsApp</option>
+            <option>Llamada</option>
+            <option>Email</option>
+          </select>
+        </div>
+        <div class="oculto-bots" aria-hidden="true">
+          <label for="sitio_web">No completar</label>
+          <input type="text" id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="campo check">
+          <input type="checkbox" id="consentimiento" name="consentimiento" required>
+          <label for="consentimiento">Acepto que mis datos se usen únicamente para responder esta consulta, conforme a la Ley 25.326 de Protección de Datos Personales. Puedo pedir su rectificación o eliminación en cualquier momento.</label>
+        </div>
+        <div class="aviso">Enviar una consulta no genera una relación profesional ni reemplaza el asesoramiento sobre tu caso. Nos comunicaremos con vos a la brevedad.</div>
+      </section>
+
+      <p class="errores" id="errores" role="alert"></p>
+
+      <div class="acciones">
+        <button type="button" class="boton secundario" id="atras" hidden>Atrás</button>
+        <button type="button" class="boton" id="siguiente">Siguiente</button>
+        <button type="submit" class="boton" id="enviar" hidden>Enviar consulta</button>
+      </div>
+    </form>
+
+    <section id="resultado" hidden></section>
+  </main>
+
+  <footer class="sitio">
+    <div class="contenedor" id="pie"></div>
+  </footer>
+
+  <script src="/js/comun.js"></script>
+  <script src="/js/consulta.js"></script>
+</body>
+</html>
