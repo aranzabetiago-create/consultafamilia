@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consulta de familia</title>
+  <meta name="description" content="Formulario previo a la consulta en derecho de familia.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <div id="aviso-config" class="aviso-config" hidden>
+    ⚙️ Falta completar <code>config.js</code> (WhatsApp y/o alias). Este aviso desaparece cuando esté configurado.
+  </div>
+
+  <header class="encabezado">
+    <div class="contenedor">
+      <p class="estudio" data-config="estudio"></p>
+      <h1>Consulta en derecho de familia</h1>
+      <p class="bajada">Completá este formulario antes de la consulta. Así llegamos a la entrevista con tu caso ordenado y aprovechamos mejor el tiempo.</p>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <ol class="pasos" aria-label="Progreso">
+      <li class="activo" data-paso-ind="1"><span>1</span> Tus datos</li>
+      <li data-paso-ind="2"><span>2</span> Tu caso</li>
+      <li data-paso-ind="3"><span>3</span> Pago y envío</li>
+    </ol>
+
+    <form id="form" novalidate>
+      <!-- PASO 1 -->
+      <section class="paso" data-paso="1">
+        <h2>Tus datos</h2>
+        <div class="grilla">
+          <label class="campo">Nombre y apellido *
+            <input name="nombre" required autocomplete="name">
+          </label>
+          <label class="campo">DNI *
+            <input name="dni" required inputmode="numeric" pattern="\d{7,8}" placeholder="Sin puntos">
+          </label>
+          <label class="campo">Celular (WhatsApp) *
+            <input name="telefono" required inputmode="tel" placeholder="Ej. 2983 123456">
+          </label>
+          <label class="campo">Email
+            <input name="email" type="email" autocomplete="email">
+          </label>
+          <label class="campo">Localidad *
+            <input name="localidad" required placeholder="Ej. Adolfo Gonzales Chaves">
+          </label>
+          <label class="campo">¿Cuándo te queda cómodo?
+            <select name="horario">
+              <option value="">Indistinto</option>
+              <option>Mañana</option>
+              <option>Tarde</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <!-- PASO 2 -->
+      <section class="paso" data-paso="2" hidden>
+        <h2>Tu caso</h2>
+
+        <label class="campo">Tema de la consulta *
+          <select name="tema" required>
+            <option value="">Elegí una opción</option>
+            <option>Cuota alimentaria</option>
+            <option>Divorcio</option>
+            <option>Cuidado personal / régimen de comunicación</option>
+            <option>Filiación / reconocimiento</option>
+            <option>Unión convivencial</option>
+            <option>Violencia familiar / medidas de protección</option>
+            <option>Sucesión</option>
+            <option>Otro</option>
+          </select>
+        </label>
+
+        <div id="alerta-violencia" class="alerta" hidden>
+          <strong>Si estás en peligro ahora, llamá al 911.</strong>
+          La <strong>Línea 144</strong> brinda atención gratuita las 24 h en casos de violencia de género. No esperes la consulta.
+        </div>
+
+        <label class="campo">Contá brevemente qué pasa y qué necesitás *
+          <textarea name="descripcion" required rows="7"
+            placeholder="Ej.: Me separé en marzo, tenemos dos hijos de 5 y 9 años que viven conmigo. El padre dejó de pasar la cuota en julio. Quiero saber cómo reclamarla."></textarea>
+          <small class="contador"><span id="contador">0</span> / <span id="max"></span></small>
+        </label>
+
+        <fieldset class="campo">
+          <legend>¿Hay hijos/as menores de edad involucrados?</legend>
+          <div class="opciones">
+            <label><input type="radio" name="hijos" value="No" checked> No</label>
+            <label><input type="radio" name="hijos" value="Sí"> Sí</label>
+          </div>
+        </fieldset>
+        <label class="campo" id="campo-edades" hidden>Edades
+          <input name="edades" placeholder="Ej. 5 y 9 años">
+        </label>
+
+        <fieldset class="campo">
+          <legend>¿Ya hay un expediente judicial o una mediación iniciada?</legend>
+          <div class="opciones">
+            <label><input type="radio" name="expediente" value="No" checked> No</label>
+            <label><input type="radio" name="expediente" value="Sí"> Sí</label>
+            <label><input type="radio" name="expediente" value="No sé"> No sé</label>
+          </div>
+        </fieldset>
+        <label class="campo" id="campo-juzgado" hidden>Juzgado y número de expediente (si lo sabés)
+          <input name="juzgado" placeholder="Ej. Juzgado de Paz de Gonzales Chaves, expte. 1234/2025">
+        </label>
+
+        <label class="campo">Nombre de la otra parte (opcional)
+          <input name="contraparte">
+        </label>
+
+        <label class="campo">Urgencia
+          <select name="urgencia">
+            <option>Normal</option>
+            <option>Esta semana</option>
+            <option>Urgente (plazo o audiencia próxima)</option>
+          </select>
+        </label>
+
+        <p class="nota">📎 Si tenés documentación (actas, sentencias, cédulas, recibos), tenela a mano: vas a poder enviarla por WhatsApp junto con el comprobante.</p>
+      </section>
+
+      <!-- PASO 3 -->
+      <section class="paso" data-paso="3" hidden>
+        <h2>Revisá, transferí y enviá</h2>
+
+        <div class="tarjeta">
+          <h3>Resumen de tu consulta</h3>
+          <pre id="resumen" class="resumen"></pre>
+        </div>
+
+        <div class="tarjeta pago">
+          <h3>1. Transferí el valor de la consulta</h3>
+          <p id="honorario-linea" hidden>Valor de la consulta: <strong data-config="honorario"></strong></p>
+          <div class="alias">
+            <div>
+              <small>Alias</small>
+              <p class="alias-valor" data-config="alias"></p>
+            </div>
+            <button type="button" class="btn secundario" data-copiar="alias">Copiar alias</button>
+          </div>
+          <dl class="datos-cuenta">
+            <dt>Titular</dt><dd data-config="titular"></dd>
+            <dt data-si="cuit">CUIT</dt><dd data-config="cuit" data-si="cuit"></dd>
+            <dt data-si="banco">Banco</dt><dd data-config="banco" data-si="banco"></dd>
+          </dl>
+        </div>
+
+        <div class="tarjeta">
+          <h3>2. Enviá la consulta y el comprobante</h3>
+          <p>El botón abre WhatsApp con tu consulta ya escrita. <strong>Adjuntá la captura del comprobante en ese mismo chat</strong> y enviá.</p>
+          <p class="nota">Número: <strong id="numero-visible"></strong></p>
+          <label class="check">
+            <input type="checkbox" name="consentimiento" required>
+            Acepto enviar estos datos al estudio para que analice mi consulta. Se tratan con confidencialidad (Ley 25.326) y este sitio no los guarda.
+          </label>
+          <a id="btn-whatsapp" class="btn whatsapp" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+          <button type="button" class="btn secundario ancho" id="btn-copiar-resumen">Copiar resumen</button>
+        </div>
+      </section>
+
+      <p id="error" class="error" role="alert" hidden></p>
+
+      <div class="navegacion">
+        <button type="button" class="btn secundario" id="btn-atras" hidden>← Atrás</button>
+        <button type="button" class="btn" id="btn-siguiente">Siguiente →</button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p><span data-config="profesional"></span> · <span data-config="estudio"></span></p>
+      <p data-config="direccion"></p>
+      <p class="nota">Completar este formulario no implica aceptación del caso ni constituye asesoramiento legal.</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>
