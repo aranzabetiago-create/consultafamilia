@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Panel de consultas</title>
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <header class="sitio">
+    <div class="contenedor">
+      <a class="marca" href="/admin">Panel de consultas</a>
+      <nav>
+        <a href="/api/admin/export.csv" id="exportar" hidden>Exportar CSV</a>
+        <a href="#" id="salir" hidden>Salir</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <section id="login" hidden>
+      <h1>Ingresar</h1>
+      <form id="form-login">
+        <div class="campo">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" autocomplete="current-password" required>
+        </div>
+        <p class="errores" id="error-login" role="alert"></p>
+        <button class="boton" type="submit">Ingresar</button>
+      </form>
+    </section>
+
+    <section id="app" hidden>
+      <div class="filtros">
+        <input type="text" id="buscar" placeholder="Buscar por nombre, teléfono, número…" aria-label="Buscar">
+        <select id="f-estado" aria-label="Estado"><option value="">Todos los estados</option></select>
+        <select id="f-tema" aria-label="Tema"><option value="">Todos los temas</option></select>
+      </div>
+      <div class="panel">
+        <div>
+          <p class="progreso" id="contador"></p>
+          <ul class="lista" id="lista"></ul>
+        </div>
+        <div id="detalle" class="tarjeta">Elegí una consulta para ver el detalle.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/comun.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
