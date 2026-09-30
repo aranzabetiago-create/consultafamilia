@@ -29,6 +29,10 @@ npm test
 
 Las consultas se guardan en `data/consultas.json` (configurable con `DATA_DIR`), un archivo que solo puede leer el usuario del servidor. Esa carpeta está excluida de git. Hacé copias de seguridad periódicas.
 
+## Versión de demostración
+
+`node scripts/build-demo.js` genera `demo/index.html`: la app completa en un solo archivo, sin servidor. Las consultas quedan guardadas solo en el navegador de quien la abre, y la contraseña del panel es `demo`. Sirve para mostrar la app, no para recibir consultas reales.
+
 ## Producción
 
 Publicala detrás de HTTPS (por ejemplo, con Caddy o Nginx como proxy) y definí `NODE_ENV=production` para que la cookie de sesión sea `Secure`.
